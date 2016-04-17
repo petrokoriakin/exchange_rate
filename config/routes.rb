@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'exchange_rate' => 'exchange_rate#index'
+  get 'exchange_rate/convert' => 'exchange_rate#convert'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
