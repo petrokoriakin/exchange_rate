@@ -16,6 +16,14 @@ class ExchangeRateData
     self.rate_column ||= options[:rate_column] || 1
   end
 
+  def import_to_store
+    actual_rates.each do |e|
+      store.create(period: e[period_column], rate: e[rate_column])
+    end
+  end
+
+  private
+
   def load
     parsed_data ? parsed_data : load!
   end
@@ -23,12 +31,6 @@ class ExchangeRateData
   def load!
     data = http_lib.get(load_link)
     @parsed_data = parser.parse(data)[skip_rows..-1]
-  end
-
-  def import_to_store
-    actual_rates.each do |e|
-      store.create(period: e[period_column], rate: e[rate_column])
-    end
   end
 
   def actual_rates

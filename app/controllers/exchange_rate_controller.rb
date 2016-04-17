@@ -13,8 +13,6 @@ class ExchangeRateController < ApplicationController
       params[:conversion] = parsed_conversion_params(service)
     rescue ExchangeRateService::InvalidDate
       flash.now[:notice] = t :incorrect_data
-    rescue ExchangeRateService::InvalidValue
-      flash.now[:notice] = t :incorrect_value
     rescue ExchangeRateService::DataRestrictionError
       flash.now[:notice] = t 'exchange_rate.date_restriction'
     rescue ExchangeRateService::NoRateDataError
